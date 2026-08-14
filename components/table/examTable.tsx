@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { examTableColums } from "./tableColumn ";
-import { publishExam} from "@/lib/client/exam";
+import { publishExam } from "@/lib/client/exam";
 import { assignExamToAll } from "@/lib/actions/exam";
 
 interface ExamTableProps {
@@ -108,7 +108,7 @@ export default function ExamTable({ exams }: ExamTableProps) {
                 columns={examTableColums}
                 data={exams}
                 isFilter={false}
-                actions={(row) => (
+                actions={(row: ExamRow) => (
                     <div className="flex items-center gap-3">
                         <button
                             type="button"
@@ -118,7 +118,7 @@ export default function ExamTable({ exams }: ExamTableProps) {
                                 handlePublishClick(row);
                             }}
                             className="flex h-9 w-9 items-center justify-center
-                            rounded-full text-[#8db0a5] transition hover:bg-[#f9a825]/10 hover:text-[#f9a825]"
+            rounded-full text-[#8db0a5] transition hover:bg-[#f9a825]/10 hover:text-[#f9a825]"
                         >
                             <Send size={17} strokeWidth={1.8} />
                         </button>
@@ -132,7 +132,7 @@ export default function ExamTable({ exams }: ExamTableProps) {
                                 handleAssignAll(row);
                             }}
                             className="flex h-9 w-9 items-center justify-center rounded-full text-[#8db0a5] transition
-                            hover:bg-[#f9a825]/10 hover:text-[#f9a825] disabled:opacity-40 disabled:cursor-not-allowed"
+            hover:bg-[#f9a825]/10 hover:text-[#f9a825] disabled:opacity-40 disabled:cursor-not-allowed"
                         >
                             <UserRoundArrowLeft size={17} strokeWidth={1.8} />
                         </button>

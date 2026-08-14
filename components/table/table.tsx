@@ -13,6 +13,7 @@ interface TableProps<T extends { id: number }> {
     data: T[];
     expandable?: boolean;
     showReview?: boolean;
+    actions?: (row: T) => React.ReactNode;
 }
 
 export default function Table<T extends { id: number }>({
@@ -20,6 +21,7 @@ export default function Table<T extends { id: number }>({
     data,
     expandable = false,
     showReview = false,
+    actions,
 }: TableProps<T>) {
 
     const router = useRouter();
@@ -89,6 +91,23 @@ export default function Table<T extends { id: number }>({
                                     ACTION
                                 </th>
                             )}
+                            {actions && (
+                                <th
+                                    className="
+            sticky top-0 z-10
+            w-28
+            bg-[#0e4938]
+            px-4 py-4
+            text-right
+            text-[11px]
+            font-bold
+            tracking-[1.5px]
+            text-[#5f877b]
+        "
+                                >
+                                    ACTION
+                                </th>
+                            )}
 
                             {expandable && (
                                 <th className="w-12 px-4" />
@@ -105,6 +124,7 @@ export default function Table<T extends { id: number }>({
                                 <td
                                     colSpan={
                                         columns.length +
+                                        (actions ? 1 : 0) +
                                         (showReview ? 1 : 0) +
                                         (expandable ? 1 : 0)
                                     }
@@ -198,6 +218,15 @@ export default function Table<T extends { id: number }>({
                                                 </td>
                                             )}
 
+                                            {actions && (
+                                                <td
+                                                    className="px-4 py-4 text-right"
+                                                    onClick={(event) => event.stopPropagation()}
+                                                >
+                                                    {actions(row)}
+                                                </td>
+                                            )}
+
                                             {expandable && (
                                                 <td
                                                     className="px-4"
@@ -242,6 +271,7 @@ export default function Table<T extends { id: number }>({
                                                 <td
                                                     colSpan={
                                                         columns.length +
+                                                        (actions ? 1 : 0) +
                                                         (showReview ? 1 : 0) +
                                                         1
                                                     }

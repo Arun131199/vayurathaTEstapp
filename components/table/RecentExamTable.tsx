@@ -21,6 +21,8 @@ interface RecentExamTableProps<
     expandable?: boolean;
     filterOptions?: string[];
     showReview?: boolean;
+
+    actions?: (row: T) => React.ReactNode;
 }
 
 export default function RecentExamTable<
@@ -37,6 +39,7 @@ export default function RecentExamTable<
     expandable = false,
     filterOptions = ["all", "PASS", "FAIL"],
     showReview = false,
+    actions
 }: RecentExamTableProps<T>) {
 
     const [search, setSearch] = useState("");
@@ -236,6 +239,7 @@ export default function RecentExamTable<
                     data={filteredData}
                     expandable={expandable}
                     showReview={showReview}
+                    actions={actions}
                 />
 
             </div>
