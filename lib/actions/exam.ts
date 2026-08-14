@@ -32,35 +32,51 @@ async function getToken() {
 // ========================================
 
 export async function startExam(examId: number) {
-
     const token = await getToken();
 
-    const response = await api.post(
-        `/exam/start?examId=${examId}`,
-        {},
-        {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+    console.log("START EXAM ID:", examId);
+    console.log("START EXAM TOKEN EXISTS:", !!token);
+
+    try {
+        const response = await api.post(
+            `/exam/start?examId=${examId}`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        console.log("START EXAM RESPONSE:", response.data);
+
+        const attempt = response.data;
+
+        if (!attempt?.id) {
+            throw new Error("Attempt ID was not returned by backend");
         }
-    );
 
-    const attempt = response.data;
+        const cookieStore = await cookies();
 
-    const cookieStore = await cookies();
-
-    cookieStore.set(
-        "exam_attempt_id",
-        String(attempt.id),
-        {
+        cookieStore.set("exam_attempt_id", String(attempt.id), {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
+            sameSite: "lax",
             path: "/",
-        }
-    );
+            maxAge: 60 * 60 * 24,
+        });
 
-    return attempt;
+        console.log("EXAM ATTEMPT COOKIE SET:", attempt.id);
+
+        return attempt;
+    } catch (error: any) {
+        console.error(
+            "START EXAM ERROR:",
+            error?.response?.data || error
+        );
+
+        throw error;
+    }
 }
 
 

@@ -135,7 +135,7 @@ export default function Exam() {
                     "Loading question index:",
                     index
                 );
-                const data =await getQuestionByIndex(index);
+                const data = await getQuestionByIndex(index);
 
                 console.log(
                     "QUESTION RESPONSE:",
@@ -490,227 +490,146 @@ export default function Exam() {
             bg-[#063528]
             text-white
         ">
-
-            {/* ================================= */}
-            {/* HEADER */}
-            {/* ================================= */}
-
             <header className="
-                fixed
-                inset-x-0
-                top-0
-                z-50
-                h-[72px]
-                border-b
-                border-[#174d3e]
-                bg-[#0b4435]
-            ">
-
+    fixed inset-x-0 top-0 z-50
+    min-h-[72px]
+    border-b border-[#174d3e]
+    bg-[#0b4435]
+">
                 <div className="
-                    flex
-                    h-full
-                    items-center
-                    justify-between
-                    px-7
-                ">
-
+        flex min-h-[72px] w-full
+        items-center justify-between
+        gap-2
+        px-3
+        sm:px-5
+        lg:px-7
+    ">
                     {/* Logo */}
-
-                    <div className="
-                        flex
-                        items-center
-                        gap-3
-                    ">
-
+                    <div className="flex min-w-0 items-center gap-2 sm:gap-3">
                         <div className="
-                            flex
-                            h-10
-                            w-10
-                            items-center
-                            justify-center
-                            rounded-full
-                            bg-[#f9a825]
-                        ">
-
+                flex h-9 w-9 shrink-0
+                items-center justify-center
+                rounded-full bg-[#f9a825]
+                sm:h-10 sm:w-10
+            ">
                             <Plane
-                                size={21}
-                                className="
-                                    -rotate-12
-                                    text-[#07372a]
-                                "
+                                size={18}
+                                className="-rotate-12 text-[#07372a] sm:size-[21px]"
                                 strokeWidth={2}
                             />
-
                         </div>
 
-                        <div>
-
+                        <div className="min-w-0">
                             <h1 className="
-                                text-[15px]
-                                font-bold
-                                leading-5
-                                text-white
-                            ">
+                    truncate
+                    text-[12px] font-bold leading-5 text-white
+                    sm:text-[15px]
+                ">
                                 {question.category}
                             </h1>
 
                             <p className="
-                                text-[10px]
-                                text-[#6d9589]
-                            ">
+                    hidden text-[10px] text-[#6d9589]
+                    sm:block
+                ">
                                 Vayuratha Test Portal
                             </p>
-
                         </div>
-
                     </div>
 
-
                     {/* Header Right */}
-
                     <div className="
-                        flex
-                        items-center
-                        gap-5
-                    ">
-
+            flex shrink-0 items-center
+            gap-1.5
+            sm:gap-3
+            lg:gap-5
+        ">
                         {/* Violations */}
-
                         <div className="
-                            flex
-                            h-9
-                            items-center
-                            gap-2
-                            rounded-full
-                            border
-                            border-[#285d4d]
-                            bg-[#0d4939]
-                            px-4
-                            text-xs
-                            font-semibold
-                            text-[#7d9e95]
-                        ">
+                flex h-9 items-center gap-1.5
+                rounded-full
+                border border-[#285d4d]
+                bg-[#0d4939]
+                px-2.5
+                text-[10px]
+                font-semibold
+                text-[#7d9e95]
+                sm:gap-2 sm:px-4 sm:text-xs
+            ">
+                            <AlertTriangle size={14} className="sm:size-4" />
 
-                            <AlertTriangle
-                                size={16}
-                            />
-
-                            <span>
+                            <span className="hidden sm:inline">
                                 Violations:
-                                {" "}
-                                {violations}/3
                             </span>
 
+                            <span>{violations}/3</span>
                         </div>
 
-
                         {/* Progress */}
-
-                        <div className="
-                            flex
-                            items-center
-                            gap-3
-                        ">
-
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <span className="
-                                text-xs
-                                text-[#7c9b92]
-                            ">
-                                Q
-                                {currentIndex + 1}
-                                /
-                                {totalQuestions}
+                    text-[10px] text-[#7c9b92]
+                    sm:text-xs
+                ">
+                                Q{currentIndex + 1}/{totalQuestions}
                             </span>
 
                             <div className="
-                                h-[5px]
-                                w-24
-                                overflow-hidden
-                                rounded-full
-                                bg-[#27584a]
-                            ">
-
+                    hidden h-[5px] w-16
+                    overflow-hidden rounded-full
+                    bg-[#27584a]
+                    sm:block sm:w-24
+                ">
                                 <div
-                                    className="
-                                        h-full
-                                        rounded-full
-                                        bg-[#f9a825]
-                                    "
+                                    className="h-full rounded-full bg-[#f9a825]"
                                     style={{
-                                        width:
-                                            `${totalQuestions
-                                                ? (
-                                                    (
-                                                        currentIndex + 1
-                                                    ) /
-                                                    totalQuestions
-                                                ) * 100
-                                                : 0
+                                        width: `${totalQuestions
+                                            ? ((currentIndex + 1) /
+                                                totalQuestions) * 100
+                                            : 0
                                             }%`,
                                     }}
                                 />
-
                             </div>
-
                         </div>
-
 
                         {/* Timer */}
-
                         <div className="
-                            flex
-                            h-10
-                            items-center
-                            gap-2
-                            rounded-full
-                            border
-                            border-[#315f50]
-                            bg-[#0d4939]
-                            px-4
-                            text-sm
-                            font-bold
-                        ">
-
-                            <Clock3
-                                size={18}
-                            />
-
-                            <span>
-                                {formatTime(
-                                    timeLeft
-                                )}
-                            </span>
-
+                flex h-9 items-center gap-1.5
+                rounded-full
+                border border-[#315f50]
+                bg-[#0d4939]
+                px-2.5
+                text-xs font-bold
+                sm:h-10 sm:gap-2 sm:px-4 sm:text-sm
+            ">
+                            <Clock3 size={15} className="sm:size-[18px]" />
+                            <span>{formatTime(timeLeft)}</span>
                         </div>
 
-
                         {/* Submit */}
-
                         <button
                             type="button"
-                            onClick={() =>
-                                handleSubmit(false)
-                            }
+                            onClick={() => handleSubmit(false)}
                             className="
-                                h-10
-                                rounded-full
-                                bg-[#f9a825]
-                                px-5
-                                text-sm
-                                font-bold
-                                text-[#07372a]
-                                shadow-[0_8px_20px_rgba(249,168,37,0.2)]
-                                transition
-                                hover:bg-[#ffb52e]
-                            "
+                    h-9
+                    rounded-full
+                    bg-[#f9a825]
+                    px-3
+                    text-[11px]
+                    font-bold
+                    text-[#07372a]
+                    shadow-[0_8px_20px_rgba(249,168,37,0.2)]
+                    transition
+                    hover:bg-[#ffb52e]
+                    sm:h-10 sm:px-5 sm:text-sm
+                "
                         >
-                            Submit Exam
+                            <span className="sm:hidden">Submit</span>
+                            <span className="hidden sm:inline">Submit Exam</span>
                         </button>
-
                     </div>
-
                 </div>
-
             </header>
 
 
@@ -719,43 +638,32 @@ export default function Exam() {
             {/* ================================= */}
 
             <main className="pt-[72px]">
-
                 <div className="
-                    flex
-                    min-h-[calc(100vh-72px)]
-                ">
-
-
-                    {/* ================================= */}
-                    {/* QUESTION AREA */}
-                    {/* ================================= */}
-
+        flex
+        min-h-[calc(100vh-72px)]
+        flex-col
+        lg:flex-row
+    ">
                     <section className="
-                        flex
-                        flex-1
-                        justify-center
-                        px-8
-                        py-10
-                    ">
-
+            flex w-full
+            flex-1
+            justify-center
+            px-3 py-5
+            sm:px-5 sm:py-7
+            lg:px-8 lg:py-10
+        ">
                         <div className="
-                            w-full
-                            max-w-[805px]
-                        ">
-
-                            {/* Question Card */}
-
+    w-full max-w-[805px]
+">
                             <div className="
-                                rounded-[19px]
-                                border
-                                border-[#205746]
-                                bg-[#0d4939]
-                                px-[34px]
-                                py-[34px]
-                            ">
-
-                                {/* Question Header */}
-
+        rounded-2xl
+        border border-[#205746]
+        bg-[#0d4939]
+        px-4 py-5
+        sm:rounded-[19px]
+        sm:px-6 sm:py-7
+        lg:px-[34px] lg:py-[34px]
+    ">
                                 <div className="
                                     flex
                                     items-center
@@ -793,12 +701,15 @@ export default function Exam() {
                                 {/* Question */}
 
                                 <h2 className="
-                                    mt-7
-                                    text-[19px]
-                                    font-semibold
-                                    leading-7
-                                    text-white
-                                ">
+    mt-5
+    break-words
+    text-[16px]
+    font-semibold
+    leading-6
+    text-white
+    sm:mt-7 sm:text-[18px] sm:leading-7
+    lg:text-[19px]
+">
                                     {question.questionText}
                                 </h2>
 
@@ -831,77 +742,22 @@ export default function Exam() {
                                                             opt.letter
                                                         )
                                                     }
-                                                    className={`
-                                                        flex
-                                                        min-h-[79px]
-                                                        w-full
-                                                        items-center
-                                                        gap-5
-                                                        rounded-[18px]
-                                                        border
-                                                        px-6
-                                                        text-left
-                                                        transition-all
-
-                                                        ${isSelected
-                                                            ? `
-                                                                    border-[#f9a825]
-                                                                    bg-[#f9a825]/10
-                                                                    shadow-[0_0_0_1px_rgba(249,168,37,0.2)]
-                                                                `
-                                                            : `
-                                                                    border-[#275d4d]
-                                                                    bg-white/[0.025]
-                                                                    hover:border-[#47796a]
-                                                                    hover:bg-white/[0.045]
-                                                                `
-                                                        }
-                                                    `}
+                                                    className={`flex min-h-[64px] w-full items-center gap-3 rounded-2xl border px-3.5 py-3 text-left transition-all
+                                                         sm:min-h-[72px] sm:gap-4 sm:px-5 lg:min-h-[79px] lg:gap-5 lg:px-6 ${isSelected
+                                                            ? ` border-[#f9a825] bg-[#f9a825]/10 shadow-[0_0_0_1px_rgba(249,168,37,0.2)]` : ` border-[#275d4d] bg-white/[0.025] hover:border-[#47796a] hover:bg-white/[0.045]`
+                                                        }`}
                                                 >
 
                                                     <span
-                                                        className={`
-                                                            flex
-                                                            h-[39px]
-                                                            w-[39px]
-                                                            shrink-0
-                                                            items-center
-                                                            justify-center
-                                                            rounded-full
-                                                            text-[15px]
-                                                            font-bold
-
-                                                            ${isSelected
-                                                                ? `
-                                                                        bg-[#f9a825]
-                                                                        text-[#07372a]
-                                                                    `
-                                                                : `
-                                                                        bg-[#276051]
-                                                                        text-[#91aaa3]
-                                                                    `
-                                                            }
-                                                        `}
+                                                        className={` flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold sm:h-10 sm:w-10 sm:text-[15px] ${isSelected ? ` bg-[#f9a825] text-[#07372a]` : ` bg-[#276051] text-[#91aaa3]`}`}
                                                     >
-                                                        {
-                                                            opt.letter
-                                                        }
+                                                        {opt.letter}
                                                     </span>
 
                                                     <span
-                                                        className={`
-                                                            text-[16px]
-                                                            font-medium
-
-                                                            ${isSelected
-                                                                ? "text-white"
-                                                                : "text-[#9ab7af]"
-                                                            }
-                                                        `}
+                                                        className={` min-w-0 break-words text-sm font-medium leading-5 sm:text-[15px] sm:leading-6 lg:text-[16px] ${isSelected ? "text-white" : "text-[#9ab7af]"}`}
                                                     >
-                                                        {
-                                                            opt.text
-                                                        }
+                                                        {opt.text}
                                                     </span>
 
                                                 </button>
@@ -918,79 +774,52 @@ export default function Exam() {
                             {/* Previous / Next */}
 
                             <div className="
-                                mt-6
-                                flex
-                                items-center
-                                justify-between
-                            ">
-
+    mt-4
+    flex items-center justify-between
+    px-1
+    sm:mt-6
+">
                                 <button
                                     type="button"
-                                    onClick={
-                                        goPrevious
-                                    }
-                                    disabled={
-                                        currentIndex ===
-                                        0
-                                    }
+                                    onClick={goPrevious}
+                                    disabled={currentIndex === 0}
                                     className="
-                                        flex
-                                        items-center
-                                        gap-1
-                                        text-sm
-                                        font-semibold
-                                        text-[#55776d]
-                                        transition
-                                        hover:text-white
-                                        disabled:cursor-not-allowed
-                                        disabled:opacity-40
-                                    "
+            flex items-center gap-1
+            text-xs font-semibold
+            text-[#55776d]
+            transition
+            hover:text-white
+            disabled:cursor-not-allowed
+            disabled:opacity-40
+            sm:text-sm
+        "
                                 >
-
-                                    <ArrowLeft
-                                        size={17}
-                                    />
-
+                                    <ArrowLeft size={15} className="sm:size-[17px]" />
                                     Previous
-
                                 </button>
-
 
                                 <button
                                     type="button"
-                                    onClick={
-                                        goNext
-                                    }
-                                    disabled={
-                                        currentIndex ===
-                                        totalQuestions - 1
-                                    }
+                                    onClick={goNext}
+                                    disabled={currentIndex === totalQuestions - 1}
                                     className="
-                                        flex
-                                        h-10
-                                        items-center
-                                        gap-2
-                                        rounded-full
-                                        bg-[#f9a825]
-                                        px-6
-                                        text-sm
-                                        font-bold
-                                        text-[#07372a]
-                                        shadow-[0_8px_20px_rgba(249,168,37,0.16)]
-                                        transition
-                                        hover:bg-[#ffb52e]
-                                        disabled:opacity-40
-                                    "
+            flex h-10
+            items-center gap-1.5
+            rounded-full
+            bg-[#f9a825]
+            px-4
+            text-xs font-bold
+            text-[#07372a]
+            shadow-[0_8px_20px_rgba(249,168,37,0.16)]
+            transition
+            hover:bg-[#ffb52e]
+            disabled:opacity-40
+            sm:gap-2 sm:px-6 sm:text-sm
+        "
                                 >
-
                                     Next
-
-                                    <ArrowRight
-                                        size={17}
-                                    />
-
+                                    <ArrowRight size={15} className="sm:size-[17px]" />
                                 </button>
-
                             </div>
 
                         </div>
@@ -1001,6 +830,92 @@ export default function Exam() {
                     {/* ================================= */}
                     {/* QUESTION PALETTE */}
                     {/* ================================= */}
+                    <div className="
+    block
+    w-full
+    border-t border-[#174d3e]
+    bg-[#063326]
+    px-3 py-4
+    lg:hidden
+">
+                        <div className="
+        mb-3 flex items-center justify-between
+    ">
+                            <span className="
+            text-[10px]
+            font-bold
+            tracking-[1.5px]
+            text-[#76988f]
+        ">
+                                QUESTIONS
+                            </span>
+
+                            <span className="text-xs text-[#71968c]">
+                                {answeredCount}/{totalQuestions}
+                            </span>
+                        </div>
+
+                        <div className="
+        flex
+        gap-2
+        overflow-x-auto
+        pb-1
+        scrollbar-thin
+        scrollbar-thumb-[#28594b]
+    ">
+                            {Array.from({
+                                length: totalQuestions,
+                            }).map((_, index) => {
+                                const isCurrent = currentIndex === index;
+
+                                const isAnswered =
+                                    Object.prototype.hasOwnProperty.call(
+                                        answeredMap,
+                                        index
+                                    );
+
+                                return (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        onClick={() => goToQuestion(index)}
+                                        className={`
+                        flex h-10 w-10
+                        shrink-0
+                        items-center justify-center
+                        rounded-xl
+                        text-xs
+                        font-semibold
+                        transition
+
+                        ${isCurrent
+                                                ? `
+                                    border-2
+                                    border-[#f9a825]
+                                    bg-[#f9a825]
+                                    text-[#07372a]
+                                `
+                                                : isAnswered
+                                                    ? `
+                                        border
+                                        border-[#f9a825]
+                                        bg-[#f9a825]/15
+                                        text-[#f9a825]
+                                    `
+                                                    : `
+                                        bg-[#174a3b]
+                                        text-[#708f87]
+                                        hover:bg-[#215442]
+                                    `
+                                            }
+                    `}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
 
                     <aside className="
                         hidden
