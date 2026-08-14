@@ -3,9 +3,8 @@
 import { Button } from '@/components/ui/button'
 import { Field, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
-import { loginUser } from '@/lib/api/auth'
+import { loginAction } from '@/lib/actions/auth'
 import { LoginType } from '@/types/loginType'
-import Form from 'next/form'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -24,28 +23,32 @@ export default function LoginForm() {
 
     const onSubmit = async (data: LoginType) => {
         try {
-            const response = await loginUser({
-                email: data?.email,
-                password: data?.password,
-                role: toggle
-            })
+            const response = await loginAction({
+                email: data.email,
+                password: data.password,
+                role: toggle,
+            });
+
             reset();
 
             if (response.role === "ADMIN") {
-                router.push("/admin-dashboard")
-            } else if (response.role === "USER") {
-                router.push("/user-dashboard")
+                router.push("/admin-dashboard");
+                router.refresh();
+            } else {
+                router.push("/user-dashboard");
+                router.refresh();
             }
+
         } catch (error: any) {
             toast.error(
                 error?.response?.data?.message ||
                 "Invalid email or password"
             );
         }
-    }
+    };
 
     useEffect(() => {
-        
+
     }, [])
 
     return (
@@ -75,7 +78,7 @@ export default function LoginForm() {
                 </Button>
             </div>
 
-            <Form action="" onSubmit={handleSubmit(onSubmit)}>
+            <form action="" onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-5">
                     <FieldSet>
                         <FieldGroup>
@@ -129,7 +132,7 @@ export default function LoginForm() {
                         Sign In to Portal
                     </Button>
                 </div>
-            </Form>
+            </form>
         </div>
     )
 }

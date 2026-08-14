@@ -10,6 +10,8 @@ export async function loginUser(data: LoginType & {
         data
     );
 
+    
+
     return response.data;
 }
 
