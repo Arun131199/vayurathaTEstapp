@@ -14,15 +14,20 @@ export interface CreateExamPayload {
     durationMinutes: number;
 }
 
-export async function getExamStats(): Promise<ExamStats> {
+async function getAccessToken() {
     const cookieStore = await cookies();
 
-    const accessToken =
-        cookieStore.get("access_token")?.value;
+    const accessToken = cookieStore.get("access_token")?.value;
 
     if (!accessToken) {
         throw new Error("Authentication token not found");
     }
+
+    return accessToken;
+}
+
+export async function getExamStats(): Promise<ExamStats> {
+    const accessToken = await getAccessToken();
 
     const response = await api.get<ExamStats>(
         "/admin/exams/stats",
@@ -36,26 +41,14 @@ export async function getExamStats(): Promise<ExamStats> {
     return response.data;
 }
 
-
 export async function getUsers() {
-
-    const cookieStore = await cookies();
-
-    const accessToken =
-        cookieStore.get("access_token")?.value;
-
-    if (!accessToken) {
-        throw new Error(
-            "Authentication token not found"
-        );
-    }
+    const accessToken = await getAccessToken();
 
     const response = await api.get(
         "/admin/users",
         {
             headers: {
-                "Content-Type": "application/json",
-                Cookie: `access_token=${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
         }
     );
@@ -63,25 +56,14 @@ export async function getUsers() {
     return response.data;
 }
 
-
 export async function getExams() {
-
-    const cookieStore = await cookies();
-
-    const accessToken =
-        cookieStore.get("access_token")?.value;
-
-    if (!accessToken) {
-        throw new Error(
-            "Authentication token not found"
-        );
-    }
+    const accessToken = await getAccessToken();
 
     const response = await api.get(
         "/admin/exams",
         {
             headers: {
-                Cookie: `access_token=${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
         }
     );
@@ -93,9 +75,16 @@ export async function publishExam(
     examId: number,
     payload: PublishExamPayload
 ) {
+    const accessToken = await getAccessToken();
+
     const response = await api.post(
         `/admin/exams/${examId}/publish`,
-        payload
+        payload,
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
     );
 
     return response.data;
@@ -104,25 +93,17 @@ export async function publishExam(
 export async function createExam(
     payload: CreateExamPayload
 ) {
-    const cookieStore = await cookies();
-
-    const accessToken =
-        cookieStore.get("access_token")?.value;
-
-    if (!accessToken) {
-        throw new Error("Authentication token not found");
-    }
+    const accessToken = await getAccessToken();
 
     const response = await api.post(
         "/admin/exams",
         payload,
         {
             headers: {
-                Cookie: `access_token=${accessToken}`,
+                Authorization: `Bearer ${accessToken}`,
             },
         }
     );
 
     return response.data;
 }
-
