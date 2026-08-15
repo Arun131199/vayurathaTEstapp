@@ -19,8 +19,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { examTableColums } from "./tableColumn ";
-import { publishExam } from "@/lib/client/exam";
-import { assignExamToAll } from "@/lib/actions/exam";
+import {
+    publishExam,
+    assignExamToAll,
+} from "@/lib/actions/exam";
 
 interface ExamTableProps {
     exams: ExamRow[];

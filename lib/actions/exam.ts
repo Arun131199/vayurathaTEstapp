@@ -2,8 +2,10 @@
 
 import {
     createExam as createExamApi,
+    publishExam as publishExamApi,
     CreateExamPayload,
-} from "@/lib/api/exam";
+    PublishExamPayload,
+} from "@/lib/api/exam";;
 import { cookies, headers } from "next/headers";
 import api from "../axios";
 
@@ -24,6 +26,13 @@ async function getToken() {
     }
 
     return token;
+}
+
+export async function publishExam(
+    examId: number,
+    payload: PublishExamPayload
+) {
+    return await publishExamApi(examId, payload);
 }
 
 

@@ -77,17 +77,35 @@ export async function publishExam(
 ) {
     const accessToken = await getAccessToken();
 
-    const response = await api.post(
-        `/admin/exams/${examId}/publish`,
-        payload,
-        {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        }
-    );
+    console.log("========== PUBLISH EXAM ==========");
+    console.log("EXAM ID:", examId);
+    console.log("PAYLOAD:", payload);
+    console.log("TOKEN EXISTS:", !!accessToken);
 
-    return response.data;
+    try {
+        const response = await api.put(
+            `/admin/exams/${examId}/publish`,
+            payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
+
+        console.log("PUBLISH RESPONSE:", response.data);
+
+        return response.data;
+
+    } catch (error: any) {
+
+        console.error("========== PUBLISH ERROR ==========");
+        console.error("STATUS:", error?.response?.status);
+        console.error("DATA:", error?.response?.data);
+        console.error("MESSAGE:", error?.message);
+
+        throw error;
+    }
 }
 
 export async function createExam(
