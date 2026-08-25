@@ -76,12 +76,6 @@ export async function publishExam(
     payload: PublishExamPayload
 ) {
     const accessToken = await getAccessToken();
-
-    console.log("========== PUBLISH EXAM ==========");
-    console.log("EXAM ID:", examId);
-    console.log("PAYLOAD:", payload);
-    console.log("TOKEN EXISTS:", !!accessToken);
-
     try {
         const response = await api.put(
             `/admin/exams/${examId}/publish`,
@@ -92,18 +86,9 @@ export async function publishExam(
                 },
             }
         );
-
-        console.log("PUBLISH RESPONSE:", response.data);
-
         return response.data;
 
     } catch (error: any) {
-
-        console.error("========== PUBLISH ERROR ==========");
-        console.error("STATUS:", error?.response?.status);
-        console.error("DATA:", error?.response?.data);
-        console.error("MESSAGE:", error?.message);
-
         throw error;
     }
 }

@@ -24,8 +24,6 @@ export default function ExamCreation({ exams }: ExamCreationProps) {
         }
     })
     const [isSubmitting, setIsSubmitting] = useState(false);
-    console.log(exams)
-
     const onSubmit = async (data: any) => {
         try {
             setIsSubmitting(true);

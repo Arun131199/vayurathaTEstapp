@@ -106,11 +106,6 @@ export default function Exam() {
 
             } catch (error) {
                 submittedRef.current = false;
-                console.error(
-                    "SUBMIT EXAM ERROR:",
-                    error
-                );
-
                 toast.error(
                     "Failed to submit exam"
                 );
@@ -130,18 +125,7 @@ export default function Exam() {
             try {
 
                 setLoading(true);
-
-                console.log(
-                    "Loading question index:",
-                    index
-                );
                 const data = await getQuestionByIndex(index);
-
-                console.log(
-                    "QUESTION RESPONSE:",
-                    data
-                );
-
                 setQuestion(data.question);
                 setCurrentIndex(data.index);
                 setTotalQuestions(
@@ -170,12 +154,6 @@ export default function Exam() {
                 }
 
             } catch (error: any) {
-
-                console.error(
-                    "LOAD QUESTION ERROR:",
-                    error
-                );
-
                 toast.error(
                     error?.message ||
                     "Failed to load question"
@@ -300,10 +278,9 @@ export default function Exam() {
                     }
 
                 } catch (error) {
-
-                    console.error(
+                    toast.error(
                         "VIOLATION ERROR:",
-                        error
+
                     );
                 }
             }
@@ -358,12 +335,6 @@ export default function Exam() {
             );
 
         } catch (error) {
-
-            console.error(
-                "SAVE ANSWER ERROR:",
-                error
-            );
-
             toast.error(
                 "Failed to save answer"
             );

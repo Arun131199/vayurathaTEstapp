@@ -38,9 +38,6 @@ export default function Table<T extends { id: number }>({
     };
 
     const handleReview = (id: number) => {
-        console.log("REVIEW CLICKED");
-        console.log("ATTEMPT ID:", id);
-
         router.push(
             `/admin-dashboard/results/${id}`
         );

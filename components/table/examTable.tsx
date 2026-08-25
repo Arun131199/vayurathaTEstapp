@@ -80,7 +80,6 @@ export default function ExamTable({ exams }: ExamTableProps) {
             toast.success("Exam scheduled successfully");
             handleClose();
         } catch (error: any) {
-            console.error("Publish exam error:", error);
             toast.error(error?.response?.data?.message || "Failed to schedule exam");
         } finally {
             setIsPublishing(false);
@@ -96,7 +95,6 @@ export default function ExamTable({ exams }: ExamTableProps) {
             const result = await assignExamToAll(exam.id);
             toast.success(result || "Exam assigned to all students");
         } catch (error: any) {
-            console.error("Assign exam error:", error);
             toast.error(error?.response?.data?.message || "Failed to assign exam");
         } finally {
             setAssigningExamId(null);

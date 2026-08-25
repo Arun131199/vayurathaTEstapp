@@ -13,6 +13,7 @@ type RegisterForm = {
     fullName: string;
     email: string;
     password: string;
+    mobile: string;
     role: string;
 };
 
@@ -21,6 +22,7 @@ export default function RegisterUser() {
         defaultValues: {
             fullName: "",
             email: "",
+            mobile: "",
             password: "",
             role: "USER"
         }
@@ -34,7 +36,6 @@ export default function RegisterUser() {
             toast.success("User registered successfully!");
             reset();
         } catch (error) {
-            console.error(error);
             toast.error("Failed to register user. Please try again.");
         } finally {
             setLoading(false);
@@ -114,6 +115,37 @@ export default function RegisterUser() {
                         <FieldGroup>
                             <Field>
                                 <FieldLabel>
+                                    MOBILE NUMBER
+                                </FieldLabel>
+                                <Controller
+                                    control={control}
+                                    name="mobile"
+                                    rules={{
+                                        required: "Mobile Number is Required"
+                                    }}
+                                    render={({ field }) => (
+                                        <Input
+                                            {...field}
+                                            type="text"
+                                            placeholder="ex. 9876543210"
+                                            className="h-12"
+                                        />
+                                    )}
+                                />
+                                {
+                                    errors.mobile && (
+                                        <div>
+                                            <p className="text-red-50 text-sm">{errors.mobile.message}</p>
+                                        </div>
+                                    )
+                                }
+                            </Field>
+                        </FieldGroup>
+                    </FieldSet>
+                    <FieldSet>
+                        <FieldGroup>
+                            <Field>
+                                <FieldLabel>
                                     PASSWORD
                                 </FieldLabel>
                                 <Controller
@@ -125,7 +157,7 @@ export default function RegisterUser() {
                                             value: 10,
                                             message: "Password must be at least 8 characters"
                                         },
-                                        
+
                                     }}
                                     render={({ field }) => (
                                         <Input

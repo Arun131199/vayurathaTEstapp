@@ -42,10 +42,6 @@ export async function publishExam(
 
 export async function startExam(examId: number) {
     const token = await getToken();
-
-    console.log("START EXAM ID:", examId);
-    console.log("START EXAM TOKEN EXISTS:", !!token);
-
     try {
         const response = await api.post(
             `/exam/start?examId=${examId}`,
@@ -56,8 +52,6 @@ export async function startExam(examId: number) {
                 },
             }
         );
-
-        console.log("START EXAM RESPONSE:", response.data);
 
         const attempt = response.data;
 
@@ -75,15 +69,8 @@ export async function startExam(examId: number) {
             maxAge: 60 * 60 * 24,
         });
 
-        console.log("EXAM ATTEMPT COOKIE SET:", attempt.id);
-
         return attempt;
     } catch (error: any) {
-        console.error(
-            "START EXAM ERROR:",
-            error?.response?.data || error
-        );
-
         throw error;
     }
 }
@@ -107,9 +94,6 @@ export async function getQuestionByIndex(
     if (!attemptId) {
         throw new Error("Exam attempt not found");
     }
-
-    console.log("ATTEMPT ID:", attemptId);
-    console.log("QUESTION INDEX:", index);
 
     const response = await api.get(
         `/exam/${attemptId}/question/${index}`,

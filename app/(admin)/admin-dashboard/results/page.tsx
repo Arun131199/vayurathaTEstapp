@@ -15,8 +15,6 @@ async function ResultsTable() {
         id: r.attemptId,
     }));
 
-    console.log(results)
-
     return (
         <RecentExamTable
             title="ALL RESULTS"

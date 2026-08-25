@@ -30,20 +30,10 @@ export function ExamCard({
 
             setIsStarting(true);
             const response = await startExam(exam.id);
-            console.log(
-                "START EXAM RESPONSE:",
-                response
-            );
             toast.success("Exam started successfully");
             router.push("/user-dashboard/exam");
 
         } catch (error: any) {
-
-            console.error(
-                "START EXAM ERROR:",
-                error
-            );
-
             toast.error(
                 error?.message ||
                 "Unable to start exam"

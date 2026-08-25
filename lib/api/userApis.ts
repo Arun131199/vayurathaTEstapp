@@ -17,13 +17,6 @@ export async function getExamPerUser() {
     if (!accessToken) {
         throw new Error("Authentication token not found");
     }
-
-    console.log("USER ID:", userId);
-    console.log(
-        "TOKEN EXISTS:",
-        !!accessToken
-    );
-
     const response = await api.get(
         `/student/exams/assigned/${userId}`,
         {
@@ -31,11 +24,6 @@ export async function getExamPerUser() {
                 Authorization: `Bearer ${accessToken}`,
             },
         }
-    );
-
-    console.log(
-        "ASSIGNED EXAMS:",
-        response.data
     );
 
     return response.data;

@@ -15,7 +15,7 @@ export default function AdminLayout({
             </aside>
 
             {/* Main Content */}
-            <main className="ml-[288px] min-h-screen p-6">
+            <main className="ml-72 min-h-screen p-6">
                 {children}
             </main>
 

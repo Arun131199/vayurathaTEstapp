@@ -17,7 +17,6 @@ export default async function UserDashboard() {
     }
     const exams = await getExamPerUser();
     const results: ExamResult[] = await getMyResults();
-    console.log(results)
     const sortedResults = [...(results ?? [])].sort(
         (a, b) => new Date(b.submittedAt ?? 0).getTime() - new Date(a.submittedAt ?? 0).getTime()
     );

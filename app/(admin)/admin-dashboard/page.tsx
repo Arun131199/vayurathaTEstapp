@@ -18,13 +18,7 @@ export default async function AdminDashboard() {
     });
 
     const stats = await getExamStats();
-    console.log(stats)
-
     const userData = await getUsers();
-    console.log(userData)
-
-    console.log(userData)
-
     const statusData: StatuscardProps[] = [
         {
             title: "Total Students",
