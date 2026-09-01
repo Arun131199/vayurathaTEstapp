@@ -23,11 +23,6 @@ export async function logout() {
     } catch (error) {
         console.error("Logout failed:", error);
     }
-
-    // Next.js side cookies-யும் clear
-    cookieStore.delete("access_token");
-    cookieStore.delete("userId");
-    cookieStore.delete("username");
-
     redirect("/login");
 }
+

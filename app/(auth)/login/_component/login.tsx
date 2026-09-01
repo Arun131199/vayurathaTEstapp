@@ -35,7 +35,7 @@ export default function LoginForm() {
                 router.push("/admin-dashboard");
                 router.refresh();
             } else {
-                router.push("/user-dashboard");
+                router.push("/user-dashboard/acknowledgment");
                 router.refresh();
             }
 

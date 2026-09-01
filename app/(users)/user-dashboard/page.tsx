@@ -23,7 +23,6 @@ export default async function UserDashboard() {
 
     return (
         <div className="max-w-7xl mx-auto p-6 space-y-4">
-
             <Hero />
 
             <div className="space-y-4">

@@ -26,7 +26,6 @@ export default function ResultScoreCard({ latest }: { latest: ExamResult }) {
                         <p className="text-3xl font-bold text-white">
                             {latest.score}/{latest.totalMarks}
                         </p>
-                        <p className="text-sm text-[#9ab7af]">{latest.percentage}%</p>
                     </div>
                 </div>
 
@@ -58,14 +57,6 @@ export default function ResultScoreCard({ latest }: { latest: ExamResult }) {
                             {latest.score}/{latest.totalMarks}
                         </p>
                     </div>
-
-                    <div className="rounded-[14px] bg-white/5 px-4 py-3">
-                        <p className="text-[11px] font-medium uppercase tracking-wide text-[#6d978a]">
-                            Percentage
-                        </p>
-                        <p className="mt-1 text-sm font-bold text-white">{latest.percentage}%</p>
-                    </div>
-
                     <div className="rounded-[14px] bg-white/5 px-4 py-3">
                         <p className="text-[11px] font-medium uppercase tracking-wide text-[#6d978a]">
                             Status
