@@ -5,6 +5,7 @@ import { Field, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/componen
 import { Input } from '@/components/ui/input'
 import { loginAction } from '@/lib/actions/auth'
 import { LoginType } from '@/types/loginType'
+import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -20,8 +21,10 @@ export default function LoginForm() {
     })
 
     const [toggle, setToggle] = useState<"USER" | "ADMIN">("USER");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const onSubmit = async (data: LoginType) => {
+        setIsSubmitting(true);
         try {
             const response = await loginAction({
                 email: data.email,
@@ -44,6 +47,8 @@ export default function LoginForm() {
                 error?.response?.data?.message ||
                 "Invalid email or password"
             );
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -127,9 +132,17 @@ export default function LoginForm() {
 
                     <Button
                         type="submit"
-                        className="w-full h-12.5 bg-[#e8a229] text-[#0c2d24] transition hover:bg-[#0c2d24] hover:text-[#e8a229] py-3 font-semibold"
+                        disabled={isSubmitting}
+                        className="w-full h-12.5 bg-[#e8a229] text-[#0c2d24] transition hover:bg-[#0c2d24] hover:text-[#e8a229] py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                        Sign In to Portal
+                        {isSubmitting ? (
+                            <span className="flex items-center justify-center gap-2">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                Signing in...
+                            </span>
+                        ) : (
+                            "Sign In to Portal"
+                        )}
                     </Button>
                 </div>
             </form>
