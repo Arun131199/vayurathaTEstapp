@@ -21,6 +21,8 @@ export default async function UserDashboard() {
         (a, b) => new Date(b.submittedAt ?? 0).getTime() - new Date(a.submittedAt ?? 0).getTime()
     );
 
+    console.log(sortedResults);
+
     return (
         <div className="max-w-7xl mx-auto p-6 space-y-4">
             <Hero />
@@ -45,7 +47,8 @@ export default async function UserDashboard() {
                                     key={result.attemptId}
                                     examName={result.category}
                                     status={result.passed ? "PASS" : "FAIL"}
-                                    score={result.percentage}
+                                    score={result.score}
+                                    totalMarks={result.totalMarks}
                                     date={
                                         result.submittedAt
                                             ? new Date(result.submittedAt).toLocaleDateString("en-IN", {

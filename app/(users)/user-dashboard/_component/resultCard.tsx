@@ -3,9 +3,10 @@ interface ResultCardProps {
     status: "PASS" | "FAIL";
     score: number;
     date: string;
+    totalMarks?: number;
 }
 
-export function ResultCard({ examName, status, score, date }: ResultCardProps) {
+export function ResultCard({ examName, status, score, date, totalMarks }: ResultCardProps) {
     return (
         <div
             className="
@@ -49,7 +50,7 @@ export function ResultCard({ examName, status, score, date }: ResultCardProps) {
                         style={{ width: `${score}%` }}
                     />
                 </div>
-                <span className="text-xs font-bold text-white">{score}%</span>
+                <span className="text-xs font-bold text-white">{score}/{totalMarks}</span>
             </div>
 
             {/* Date */}
