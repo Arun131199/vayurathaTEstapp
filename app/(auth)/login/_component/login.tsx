@@ -5,7 +5,7 @@ import { Field, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/componen
 import { Input } from '@/components/ui/input'
 import { loginAction } from '@/lib/actions/auth'
 import { LoginType } from '@/types/loginType'
-import { Loader2 } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -22,6 +22,7 @@ export default function LoginForm() {
 
     const [toggle, setToggle] = useState<"USER" | "ADMIN">("USER");
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data: LoginType) => {
         setIsSubmitting(true);
@@ -83,7 +84,7 @@ export default function LoginForm() {
                 </Button>
             </div>
 
-            <form action="" onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="space-y-5">
                     <FieldSet>
                         <FieldGroup>
@@ -118,12 +119,27 @@ export default function LoginForm() {
                                     control={control}
                                     name="password"
                                     render={({ field }) => (
-                                        <Input
-                                            {...field}
-                                            type="password"
-                                            placeholder="your password"
-                                            className="mt-2 w-full h-10 text-white"
-                                        />
+                                        <div className="relative mt-2">
+                                            <Input
+                                                {...field}
+                                                type={showPassword ? "text" : "password"}
+                                                placeholder="your password"
+                                                className="w-full h-10 pr-10 text-white"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword((visible) => !visible)}
+                                                aria-label={showPassword ? "Hide password" : "Show password"}
+                                                aria-pressed={showPassword}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#e8a229] rounded"
+                                            >
+                                                {showPassword ? (
+                                                    <EyeOff className="h-4 w-4" aria-hidden="true" />
+                                                ) : (
+                                                    <Eye className="h-4 w-4" aria-hidden="true" />
+                                                )}
+                                            </button>
+                                        </div>
                                     )}
                                 />
                             </Field>
