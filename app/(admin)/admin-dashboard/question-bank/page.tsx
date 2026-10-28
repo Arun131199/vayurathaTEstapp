@@ -83,39 +83,19 @@ export default function QuestionBank() {
 
 
     useEffect(() => {
-
         const loadExams = async () => {
-
             try {
-
                 setIsLoadingExams(true);
-
-                const data =
-                    await getExamsClient();
-
+                const data =await getExamsClient();
                 setExams(data ?? []);
-
             } catch (error) {
-
-                console.error(
-                    "Failed to load exams:",
-                    error
-                );
-
-                toast.error(
-                    "Failed to load exams"
-                );
-
+                console.error("Failed to load exams:",error);
+                toast.error("Failed to load exams");
             } finally {
-
                 setIsLoadingExams(false);
-
             }
         };
-
-
         loadExams();
-
     }, []);
 
 
@@ -288,22 +268,13 @@ export default function QuestionBank() {
         reader.readAsArrayBuffer(file);
     };
 
-    const handleFileChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-
-        const file =
-            event.target.files?.[0];
-
+    const handleFileChange = ( event: React.ChangeEvent<HTMLInputElement>) => {
+        const file =event.target.files?.[0];
         if (!file) return;
-
         processFile(file);
     };
-
     const handleBrowse = () => {
-
         fileInputRef.current?.click();
-
     };
 
     const handleDragOver = (
