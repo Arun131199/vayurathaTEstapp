@@ -6,10 +6,8 @@ export async function getExamsClient() {
         credentials: "same-origin",
         cache: "no-store",
     });
-
     if (!response.ok) {
         throw new Error(`Failed to load exams: ${response.status}`);
     }
-
     return response.json();
 }

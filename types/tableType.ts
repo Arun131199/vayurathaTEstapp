@@ -25,6 +25,7 @@ export interface ExamRow {
     startTime: string | null;
     endTime?: string | null;
     status?: string;
+    isDefaultForNewUsers?: boolean;
 }
 
 export interface AdminResultRow {

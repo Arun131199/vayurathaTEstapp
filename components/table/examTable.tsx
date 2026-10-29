@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Send, UserRoundArrowLeft } from "lucide-react";
+import { Pencil, Send, UserRoundArrowLeft, Users } from "lucide-react";
 import { toast } from "sonner";
 
 import RecentExamTable from "@/components/table/RecentExamTable";
-import { ExamRow } from "@/types/tableType";
+import { ExamRow, UserRow } from "@/types/tableType";
+import EditExamDialog from "@/components/exam/EditExamDialog";
+import ExamStudentsDialog from "@/components/exam/ExamStudentsDialog";
 
 import {
     Dialog,
@@ -26,16 +28,23 @@ import {
 
 interface ExamTableProps {
     exams: ExamRow[];
+    students: UserRow[];
 }
 
-export default function ExamTable({ exams }: ExamTableProps) {
+const actionButtonClass =
+    "flex h-9 w-9 items-center justify-center rounded-full text-[#8db0a5] transition " +
+    "hover:bg-[#f9a825]/10 hover:text-[#f9a825] disabled:opacity-40 disabled:cursor-not-allowed";
+
+export default function ExamTable({ exams, students }: ExamTableProps) {
     const [selectedExam, setSelectedExam] = useState<ExamRow | null>(null);
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [isPublishing, setIsPublishing] = useState(false);
 
-    // NEW - track which exam is currently being assigned
     const [assigningExamId, setAssigningExamId] = useState<number | null>(null);
+
+    const [editExam, setEditExam] = useState<ExamRow | null>(null);
+    const [studentsExam, setStudentsExam] = useState<ExamRow | null>(null);
 
     const handlePublishClick = (exam: ExamRow) => {
         setSelectedExam(exam);
@@ -86,9 +95,8 @@ export default function ExamTable({ exams }: ExamTableProps) {
         }
     };
 
-    // NEW - assign exam to all students
     const handleAssignAll = async (exam: ExamRow) => {
-        if (assigningExamId) return;   // prevent double-click while one is in progress
+        if (assigningExamId) return;
 
         try {
             setAssigningExamId(exam.id);
@@ -109,7 +117,19 @@ export default function ExamTable({ exams }: ExamTableProps) {
                 data={exams}
                 isFilter={false}
                 actions={(row: ExamRow) => (
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center justify-end gap-1">
+                        <button
+                            type="button"
+                            title="Edit Exam"
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                setEditExam(row);
+                            }}
+                            className={actionButtonClass}
+                        >
+                            <Pencil size={17} strokeWidth={1.8} />
+                        </button>
+
                         <button
                             type="button"
                             title="Schedule Exam"
@@ -117,10 +137,21 @@ export default function ExamTable({ exams }: ExamTableProps) {
                                 event.stopPropagation();
                                 handlePublishClick(row);
                             }}
-                            className="flex h-9 w-9 items-center justify-center
-            rounded-full text-[#8db0a5] transition hover:bg-[#f9a825]/10 hover:text-[#f9a825]"
+                            className={actionButtonClass}
                         >
                             <Send size={17} strokeWidth={1.8} />
+                        </button>
+
+                        <button
+                            type="button"
+                            title="Assign Students"
+                            onClick={(event) => {
+                                event.stopPropagation();
+                                setStudentsExam(row);
+                            }}
+                            className={actionButtonClass}
+                        >
+                            <Users size={17} strokeWidth={1.8} />
                         </button>
 
                         <button
@@ -131,8 +162,7 @@ export default function ExamTable({ exams }: ExamTableProps) {
                                 event.stopPropagation();
                                 handleAssignAll(row);
                             }}
-                            className="flex h-9 w-9 items-center justify-center rounded-full text-[#8db0a5] transition
-            hover:bg-[#f9a825]/10 hover:text-[#f9a825] disabled:opacity-40 disabled:cursor-not-allowed"
+                            className={actionButtonClass}
                         >
                             <UserRoundArrowLeft size={17} strokeWidth={1.8} />
                         </button>
@@ -208,6 +238,23 @@ export default function ExamTable({ exams }: ExamTableProps) {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+
+            {editExam && (
+                <EditExamDialog
+                    key={editExam.id}
+                    exam={editExam}
+                    onClose={() => setEditExam(null)}
+                />
+            )}
+
+            {studentsExam && (
+                <ExamStudentsDialog
+                    key={studentsExam.id}
+                    exam={studentsExam}
+                    students={students}
+                    onClose={() => setStudentsExam(null)}
+                />
+            )}
         </>
     );
 }
