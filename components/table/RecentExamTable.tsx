@@ -91,13 +91,11 @@ export default function RecentExamTable<
 
     const handleExport = async () => {
         try {
-            const response = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/admin/results/export`,
-                {
-                    method: "GET",
-                    credentials: "include",
-                }
-            );
+            const response = await fetch("/api/admin/results/export", {
+                method: "GET",
+                credentials: "same-origin",
+                cache: "no-store",
+            });
 
             if (!response.ok) {
                 throw new Error("Failed to export results");
