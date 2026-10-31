@@ -9,10 +9,19 @@ export async function importQuestion(
     formData.append("file", file);
     formData.append("examId", String(examId));
 
-    const response = await api.post(
-        "/admin/questions/import",
-        formData
-    );
+    const response = await fetch("/api/admin/questions/import", {
+        method: "POST",
+        body: formData,
+        credentials: "same-origin",
+    });
 
-    return response.data;
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(
+            data?.message || `Question import failed (${response.status})`
+        );
+    }
+
+    return data;
 }
